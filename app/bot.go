@@ -37,7 +37,11 @@ func Init() {
 	if err != nil {
 		log.Fatalf("Failed to create Discord session: %v", err)
 	}
-
+	// Very important line, this means no timeout will occur from discordgo library
+	// if not set to 0, the program kills itself on slower connections as i tested with my absolutely bad internet on windows
+	// it worked in github codespace without timeouts but locally it doesn't
+	// there maybe side effects of doing this, I dont know
+	Session.Client.Timeout = 0
 	// Make sure to close the session when the application stops
 	defer Session.Close()
 }

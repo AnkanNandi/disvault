@@ -7,7 +7,7 @@ import (
 )
 
 // Version is the application version, set via ldflags during build.
-var Version = "0.0.1-alpha.1" // Default value for development builds
+var Version = "0.1.0" // Default value for development builds
 
 // versionCmd represents the version command
 var versionCmd = &cobra.Command{

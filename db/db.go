@@ -17,6 +17,12 @@ var (
 	once sync.Once
 )
 
+// Groups table contains data for group so it can be joined when called by the user
+// files table contains all the metadata of the file and how many parts it may have,
+// that total_parts is calculated by a function and doesn't care about the discord files.
+// Parts table has all the parts that are uploaded by the UploadFiles function
+// On the groups table, root group means if a group is related to some other group,
+// TODO: add better names
 const Tables string = `-- Create the 'groups' table with a self-referencing foreign key
 			CREATE TABLE IF NOT EXISTS groups (
    			 group_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -82,12 +88,6 @@ func InitDatabase() error {
 		}
 
 		// Create necessary tables
-		// Groups table contains data for group so it can be joined when called by the user
-		// files table contains all the metadata of the file and how many parts it may have,
-		// that total_parts is calculated by a function and doesn't care about the discord files.
-		// Parts table has all the parts that are uploaded by the UploadFiles function
-		// On the groups table, root group means if a group is related to some other group,
-		// TODO: add better names
 		_, err = DB.ExecContext(
 			context.Background(),
 			Tables,
